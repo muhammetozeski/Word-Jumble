@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!181963792 &2655988077585873504
+Preset:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: FeedBackHandler
+  m_TargetType:
+    m_NativeTypeID: 114
+    m_ManagedTypePPtr: {fileID: 11500000, guid: 06c82f5652618224daa50714b6aa345c, type: 3}
+    m_ManagedTypeFallback: 
+  m_Properties:
+  - target: {fileID: 0}
+    propertyPath: m_Enabled
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorHideFlags
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorClassIdentifier
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: FormId
+    value: 1FAIpQLSemZs72PLW5iSXQMj4JJ9m5Gy_3m5zHc_0slSpgfzlrzoNFgA
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: IdEId
+    value: 1281961641
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: FeedbackEId
+    value: 1685257327
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: EMailEId
+    value: 2071561564
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: ConsoleLogEId
+    value: 942621296
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: PlayingTimeInSecondsEId
+    value: 940655011
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: PlayingTimeInMinutesEId
+    value: 545712983
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: BestScoreEId
+    value: 11416813
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LanguageEId
+    value: 1745275347
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: SystemLanguageEId
+    value: 1577344694
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: PlayedTurnEId
+    value: 1907611890
+    objectReference: {fileID: 0}
+  m_ExcludedProperties: []
