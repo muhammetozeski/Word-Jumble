@@ -1,10 +1,12 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class ConsoleManager : MonoBehaviour
 {
-    [SerializeField] TMP_InputField Input;
+    [SerializeField] TMP_InputField ConsoleInput;
     [SerializeField] TextMeshProUGUI Output;
 
     [SerializeField] GameObject CLIGame;
@@ -12,10 +14,33 @@ public class ConsoleManager : MonoBehaviour
 
     public bool DebugMode = false;
 
-    public void Print(object Text)
+    List<string> writeToConsole = new List<string>();
+    private bool isPrinting = false;
+    public void Print(object text, float delay)
     {
-        const string CLILineHeader = "> ";
-        Output.text += CLILineHeader + Text.ToString() + "\n";
+        writeToConsole.Add(text.ToString());
+
+        if (!isPrinting)
+        {
+            StartCoroutine(StartPrinting(delay));
+        }
+    }
+    private IEnumerator StartPrinting(float delay)
+    {
+        isPrinting = true;
+
+        while (writeToConsole.Count > 0)
+        {
+            printToConsole(writeToConsole[0]);
+            writeToConsole.RemoveAt(0);
+            yield return new WaitForSeconds(delay);
+        }
+
+        isPrinting = false;
+    }
+    void printToConsole(string text)
+    {
+        Output.text += "> " + text + "\n";
     }
 
     public void DPrint(object Text)
@@ -37,10 +62,16 @@ public class ConsoleManager : MonoBehaviour
 
     private void Start()
     {
-        Input.ActivateInputField();
+        ConsoleInput.ActivateInputField();
+        
 
         Game = CLIGame.GetComponent<ICLIGame>();
-        Input.onSubmit.AddListener(OnInputSubmit);
+        ConsoleInput.onSubmit.AddListener(OnInputSubmit);
+        ConsoleInput.onSelect.AddListener(txt =>
+        {
+            TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default);
+            ConsoleInput.ActivateInputField();
+        });
 
         Game.OnStart();
     }
@@ -48,8 +79,9 @@ public class ConsoleManager : MonoBehaviour
     {
         if (string.IsNullOrEmpty(InputText)) return;
 
-        Print(InputText);
-        Input.text = "";
+        printToConsole(InputText);
+
+        ConsoleInput.text = "";
 
         Action inputFunction;
         if (Game.InputFunctions.TryGetValue(InputText, out inputFunction))
@@ -57,6 +89,6 @@ public class ConsoleManager : MonoBehaviour
         else
             Game.OnCommandNotFound(InputText);
 
-        Input.ActivateInputField();
+        ConsoleInput.ActivateInputField();
     }
 }

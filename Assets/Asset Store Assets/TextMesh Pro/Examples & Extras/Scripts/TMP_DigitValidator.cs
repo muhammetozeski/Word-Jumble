@@ -5,10 +5,10 @@ using System;
 namespace TMPro
 {
     /// <summary>
-    /// EXample of a Custom Character Input Validator to only allow digits from 0 to 9.
+    /// EXample of a Custom Character ConsoleInput Validator to only allow digits from 0 to 9.
     /// </summary>
     [Serializable]
-    //[CreateAssetMenu(fileName = "InputValidator - Digits.asset", menuName = "TextMeshPro/Input Validators/Digits", order = 100)]
+    //[CreateAssetMenu(fileName = "InputValidator - Digits.asset", menuName = "TextMeshPro/ConsoleInput Validators/Digits", order = 100)]
     public class TMP_DigitValidator : TMP_InputValidator
     {
         // Custom text input validation function

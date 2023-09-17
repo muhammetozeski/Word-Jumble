@@ -311,7 +311,7 @@ namespace TMPro.Examples
             // Check if Mouse Intersects any of the characters. If so, assign a random color.
             #region Character Selection Handling
             /*
-            int charIndex = TMP_TextUtilities.FindIntersectingCharacter(m_TextMeshPro, Input.mousePosition, m_Camera, true);
+            int charIndex = TMP_TextUtilities.FindIntersectingCharacter(m_TextMeshPro, ConsoleInput.mousePosition, m_Camera, true);
             if (charIndex != -1 && charIndex != m_lastIndex)
             {
                 //Debug.Log("Character [" + m_TextMeshPro.textInfo.characterInfo[index].character + "] was selected at POS: " + eventData.position);
@@ -336,7 +336,7 @@ namespace TMPro.Examples
             #region Word Selection Handling
             //Check if Mouse intersects any Words and if so assign a random color to that word.
             /*
-            int wordIndex = TMP_TextUtilities.FindIntersectingWord(m_TextMeshPro, Input.mousePosition, m_Camera);
+            int wordIndex = TMP_TextUtilities.FindIntersectingWord(m_TextMeshPro, ConsoleInput.mousePosition, m_Camera);
 
             // Clear previous word selection.
             if (m_TextPopup_RectTransform != null && m_selectedWord != -1 && (wordIndex == -1 || wordIndex != m_selectedWord))
@@ -396,7 +396,7 @@ namespace TMPro.Examples
             #region Link Selection Handling
             /*
             // Check if Mouse intersects any Words and if so assign a random color to that word.
-            int linkIndex = TMP_TextUtilities.FindIntersectingLink(m_TextMeshPro, Input.mousePosition, m_Camera);
+            int linkIndex = TMP_TextUtilities.FindIntersectingLink(m_TextMeshPro, ConsoleInput.mousePosition, m_Camera);
             if (linkIndex != -1)
             {
                 TMP_LinkInfo linkInfo = m_TextMeshPro.textInfo.linkInfo[linkIndex];

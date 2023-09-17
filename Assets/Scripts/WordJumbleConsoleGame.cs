@@ -15,8 +15,13 @@ using System.Net.Http;
 public class WordJumbleConsoleGame : MonoBehaviour, ICLIGame
 {
     [Header("Preferences")]
+    [SerializeField] float ConsoleMessageDelay = 1;
+
     [Tooltip("Unity sends \"feedback\" every \"SendingDataDensity\" turn")]
     [SerializeField] int SendingDataDensity;
+
+    [Tooltip("Unity saves the game every \"SavingDataDensity\" turn")]
+    [SerializeField] int SavingDataDensity;
 
     [SerializeField] Color ScoreHighlightColor;
 
@@ -73,7 +78,6 @@ public class WordJumbleConsoleGame : MonoBehaviour, ICLIGame
         {WordsClass.German.Name, WordsClass.German},
         {WordsClass.English.Name, WordsClass.English},
     };
-
     Action ICLIGame.OnStart { get => OnStart; }
 
     private Dictionary<string, Action> InputFunctions;
@@ -84,7 +88,11 @@ public class WordJumbleConsoleGame : MonoBehaviour, ICLIGame
 
     public Action OnHelpCommand { get { return Help; } }
 
-    Action<object> Print, DPrint;
+    [Tooltip("Console print")]
+    Action<object> Print;
+
+    [Tooltip("For debug print")]
+    Action<object> DPrint;
 
     Dictionary<string, Action> DefaultInputFunctions = new Dictionary<string, Action>();
 
@@ -131,7 +139,9 @@ public class WordJumbleConsoleGame : MonoBehaviour, ICLIGame
 
     private void OnAwake()
     {
-        Print = Console.Print;
+        Print = (text) => {
+            Console.Print(text, ConsoleMessageDelay);
+        };
         DPrint = Console.DPrint;
         DefaultInputFunctionsInitializer();
         InputFunctions = DefaultInputFunctions;
@@ -146,7 +156,8 @@ public class WordJumbleConsoleGame : MonoBehaviour, ICLIGame
     private void OnStart()
     {
         OnAwake();
-        Score = PlayerPrefs.GetInt(PlayerPrefsNames.Score, 0);
+        PlayerPrefs.SetInt(PlayerPrefsNames.Score, 0);
+        Score = 0;
         words = languages[PlayerPrefs.GetString(PlayerPrefsNames.Language, WordsClass.English.Name)];
 
         Print("Unscramble the letters to make a word.");
@@ -180,6 +191,10 @@ public class WordJumbleConsoleGame : MonoBehaviour, ICLIGame
         //send statistics periodically
         if(PlayedTurn%SendingDataDensity == 0)
             SendFeedBack();
+
+        //Save game periodically
+        if (PlayedTurn % SavingDataDensity == 0)
+            AutoSave();
     }
 
     void CalculatePoints()
@@ -263,11 +278,18 @@ public class WordJumbleConsoleGame : MonoBehaviour, ICLIGame
 
     void Save()
     {
+        AutoSave();
+        Print("Game saved...");
+    }
+
+    void AutoSave()
+    {
         PlayerPrefs.SetInt(PlayerPrefsNames.Score, Score);
         PlayerPrefs.SetString(PlayerPrefsNames.Language, words.Name);
         CheckBestScore();
-        Print("Game saved...");
+        PlayerPrefs.Save();
     }
+
     void CheckBestScore()
     {
         if (Score > BestScore)
